@@ -139,37 +139,57 @@ const updateProfileHandler = async (request, h) => {
   }
   const updatedAt = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
   const isCorrect = await db.query('SELECT * FROM users WHERE id =?', [userId])
-  if (isCorrect.results.length > 0) {
+  const correct = isCorrect.results
+  if (correct.length > 0) {
     await db.query('UPDATE users SET updatedAt =?', [updatedAt])
     if (username) {
-      await db.query('UPDATE users SET username =?', [username])
+      const uniqueUsername = await db.query('SELECT username FROM users WHERE username =?', [username])
+      if (uniqueUsername.results.length > 0) {
+        const response = h.response({
+          status: 'fail',
+          message: 'Username sudah digunakan'
+        })
+        response.code(400)
+        return response
+      }
+      await db.query('UPDATE users SET username =? WHERE id =?', [username, userId])
     }
     if (password) {
-      await db.query('UPDATE users SET password =?', [[password]])
+      await db.query('UPDATE users SET password =? WHERE id =?', [password, userId])
     }
     if (phone) {
-      await db.query('UPDATE users SET phone =?', [phone])
+      const uniquePhone = await db.query('SELECT phone FROM users WHERE phone =?', [phone])
+      if (uniquePhone.results.length > 0) {
+        const response = h.response({
+          status: 'fail',
+          message: 'Nomor sudah digunakan'
+        })
+        response.code(400)
+        return response
+      }
+      await db.query('UPDATE users SET phone =? WHERE id =?', [phone, userId])
     }
     if (firstName) {
-      await db.query('UPDATE users SET firstName =?', [firstName])
+      await db.query('UPDATE users SET firstName =? WHERE id =?', [firstName, userId])
     }
     if (lastName) {
-      await db.query('UPDATE users SET lastName =?', [lastName])
+      await db.query('UPDATE users SET lastName =? WHERE id =?', [lastName, userId])
     }
     if (gender) {
-      await db.query('UPDATE users SET gender =?', [gender])
+      await db.query('UPDATE users SET gender =? WHERE id =?', [gender, userId])
     }
     if (birth) {
-      await db.query('UPDATE users SET birth =?', [birth])
+      await db.query('UPDATE users SET birth =? WHERE id =?', [birth, userId])
     }
     if (status) {
-      await db.query('UPDATE users SET status =?', [status])
+      await db.query('UPDATE users SET status =? WHERE id =?', [status, userId])
     }
     const updated = await db.query('SELECT * FROM users WHERE id =?', [userId])
+    const update = updated.results
     const response = h.response({
       status: 'success',
       message: 'Profile berhasil diubah',
-      data: updated.results[0]
+      data: update[0]
     })
     response.code(201)
     return response
