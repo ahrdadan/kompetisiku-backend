@@ -141,7 +141,7 @@ const updateProfileHandler = async (request, h) => {
   const isCorrect = await db.query('SELECT * FROM users WHERE id =?', [userId])
   const correct = isCorrect.results
   if (correct.length > 0) {
-    await db.query('UPDATE users SET updatedAt =?', [updatedAt])
+    await db.query('UPDATE users SET updatedAt =? WHERE id =?', [updatedAt, userId])
     if (username) {
       const uniqueUsername = await db.query('SELECT username FROM users WHERE username =?', [username])
       if (uniqueUsername.results.length > 0) {
