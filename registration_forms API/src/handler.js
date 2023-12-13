@@ -14,9 +14,10 @@ const inputDataFormsHandler = async (request, h) => {
   const { results } = await db.query('INSERT INTO data_forms SET data =?, id =?, userId = (SELECT id FROM users WHERE id =?), competitionId =(SELECT id FROM competitions WHERE id =?), createdAt =?, updatedAt =?', [JSON.stringify(data), id, userId, competitionId, createdAt, updatedAt])
 
   if (results) {
+    const success = await db.query('SELECT * FROM data_forms WHERE id =?', [id])
     const response = h.response({
       status: 'success',
-      data: results
+      data: success.results[0]
     })
     response.code(200)
     return response
