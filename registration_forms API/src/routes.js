@@ -22,19 +22,19 @@ const routes = [
   // getFormsById
   {
     method: 'GET',
-    path: '/competitions/forms/{formsId}',
+    path: '/competitions/forms/{formId}',
     handler: getFormsByIdHandler
   },
   // updateFormsById
   {
     method: 'PATCH',
-    path: '/competitions/forms/{formsId}',
+    path: '/competitions/forms/{formId}',
     handler: updateFormsByIdHandler
   },
   // deleteForms
   {
     method: 'DELETE',
-    path: '/competitions/forms/{formsId}',
+    path: '/competitions/forms/{formId}',
     handler: deleteFormsHandler
   }
 ]
