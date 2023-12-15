@@ -19,7 +19,7 @@ const inputDataFormsHandler = async (request, h) => {
       status: 'success',
       data: success.results[0]
     })
-    response.code(200)
+    response.code(201)
     return response
   }
   const response = h.response({
