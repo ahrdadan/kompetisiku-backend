@@ -50,8 +50,8 @@ const getAllFormsHandler = async (request, h) => {
 
 // getFormsById
 const getFormsByIdHandler = async (request, h) => {
-  const { formsId } = request.params
-  const { results } = await db.query('SELECT * FROM data_forms WHERE id =?', [formsId])
+  const { formId } = request.params
+  const { results } = await db.query('SELECT * FROM data_forms WHERE id =?', [formId])
 
   if (results.length > 0) {
     const response = h.response({
@@ -71,17 +71,17 @@ const getFormsByIdHandler = async (request, h) => {
 
 // updateFormsById
 const updateFormsByIdHandler = async (request, h) => {
-  const { formsId } = request.params
+  const { formId } = request.params
   const { data } = request.payload
   const updatedAt = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
-  const { results } = await db.query('SELECT * FROM data_forms WHERE id =?', [formsId])
-  const jsondoc = await db.query('SELECT data FROM data_forms WHERE id =?', [formsId])
+  const { results } = await db.query('SELECT * FROM data_forms WHERE id =?', [formId])
+  const jsondoc = await db.query('SELECT data FROM data_forms WHERE id =?', [formId])
   const jdoc = jsondoc.results
 
   if (results.length > 0) {
-    await db.query("UPDATE data_forms SET data = JSON_SET(?, '$', CAST(? AS JSON)) WHERE id =?", [JSON.stringify(jdoc[0].data), JSON.stringify([...data]), formsId])
-    await db.query('UPDATE data_forms SET updatedAt =? WHERE id =?', [updatedAt, formsId])
-    const updated = await db.query('SELECT * FROM data_forms WHERE id =?', [formsId])
+    await db.query("UPDATE data_forms SET data = JSON_SET(?, '$', CAST(? AS JSON)) WHERE id =?", [JSON.stringify(jdoc[0].data), JSON.stringify([...data]), formId])
+    await db.query('UPDATE data_forms SET updatedAt =? WHERE id =?', [updatedAt, formId])
+    const updated = await db.query('SELECT * FROM data_forms WHERE id =?', [formId])
     if (updated.results.length > 0) {
       const response = h.response({
         status: 'success',
@@ -108,12 +108,12 @@ const updateFormsByIdHandler = async (request, h) => {
 
 // deleteForms
 const deleteFormsHandler = async (request, h) => {
-  const { formsId } = request.params
-  const { results } = await db.query('SELECT * FROM data_forms WHERE id =?', [formsId])
+  const { formId } = request.params
+  const { results } = await db.query('SELECT * FROM data_forms WHERE id =?', [formId])
 
   if (results.length > 0) {
-    await db.query('DELETE FROM data_forms WHERE id =?', [formsId])
-    const deleted = await db.query('SELECT * FROM data_forms WHERE id =?', [formsId])
+    await db.query('DELETE FROM data_forms WHERE id =?', [formId])
+    const deleted = await db.query('SELECT * FROM data_forms WHERE id =?', [formId])
     if (deleted.results.length === 0) {
       const response = h.response({
         status: 'success',
