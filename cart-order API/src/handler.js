@@ -59,6 +59,7 @@ const getCartById = async (request, h) => {
   }
 };
 
+
 const addCart = async (request, h) => {
   try {
     const {
@@ -67,28 +68,30 @@ const addCart = async (request, h) => {
       total,
     } = request.payload;
 
+    const hargaTotal = quantity * total;
     const query = 'INSERT INTO carts (participant_id, quantity, total) VALUES (?, ?, ?)';
-    const escapedValues = [participantId, quantity, total];
+    const escapedValues = [participantId, quantity, hargaTotal];
 
     const {
       results,
     } = await db.query(query, escapedValues);
 
     const response = h.response({
-      message: 'Data transaksi berhasil ditambahkan',
+      message: 'Data cart berhasil ditambahkan',
       data: results[0],
     });
-    response.code(201); // HTTP 201 Created
+    response.code(201);
     return response;
   } catch (error) {
     console.error('Error adding data:', error);
     const response = h.response({
-      message: 'Terjadi kesalahan dalam menambahkan data transaksi',
+      message: 'Terjadi kesalahan dalam menambahkan data cart',
     });
     response.code(500);
     return response;
   }
 };
+
 
 const updateCart = async (request, h) => {
   try {
@@ -100,7 +103,7 @@ const updateCart = async (request, h) => {
       total,
     } = request.payload;
 
-    const query = 'UPDATE carts SET quantity = ?, total = ? WHERE participant_id = ?';
+    const query = 'UPDATE carts SET quantity = ?, total = quantity * ? WHERE participant_id = ?';
     const escapedValues = [quantity, total, participantId];
 
     const {
@@ -109,26 +112,64 @@ const updateCart = async (request, h) => {
 
     if (results.affectedRows > 0) {
       const response = h.response({
-        message: `Data transaksi dengan ID ${participantId} berhasil diperbarui`,
+        message: `Data cart dengan ID ${participantId} berhasil diperbarui`,
         data: results[0],
       });
       response.code(200);
       return response;
     }
     const response = h.response({
-      message: `Data transaksi dengan ID ${participantId} tidak ditemukan`,
+      message: `Data cart dengan ID ${participantId} tidak ditemukan`,
     });
     response.code(404);
     return response;
   } catch (error) {
     console.error('Error updating data:', error);
     const response = h.response({
-      message: 'Terjadi kesalahan dalam memperbarui data transaksi',
+      message: 'Terjadi kesalahan dalam memperbarui data cart',
     });
     response.code(500);
     return response;
   }
 };
+
+const deleteCart = async (request, h) => {
+  try {
+    const {
+      participantId,
+      cartId
+    } = request.params;
+
+    // Hapus terlebih dahulu data dari tabel orders yang merujuk ke cart_id yang akan dihapus
+    const deleteOrdersQuery = 'DELETE FROM orders WHERE cart_id = ?';
+    await db.query(deleteOrdersQuery, [cartId]);
+
+    // Hapus data dari tabel carts setelah data terkait di tabel orders dihapus
+    const deleteQuery = 'DELETE FROM carts WHERE participant_id = ? AND id = ?';
+    const deleteValues = [participantId, cartId];
+    const {
+      results
+    } = await db.query(deleteQuery, deleteValues);
+
+    if (results.affectedRows > 0) {
+      // Data berhasil dihapus
+      return h.response({
+        message: `Data cart dengan ID ${cartId} dan participant ID ${participantId} berhasil dihapus`,
+      }).code(200);
+    } else {
+      // Data tidak ditemukan
+      return h.response({
+        message: `Data cart dengan ID ${cartId} dan participant ID ${participantId} tidak ditemukan`,
+      }).code(404);
+    }
+  } catch (error) {
+    console.error('Error deleting data:', error);
+    return h.response({
+      message: 'Terjadi kesalahan dalam menghapus data cart',
+    }).code(500);
+  }
+};
+
 
 // transactions handler
 const getAllTransactions = async (request, h) => {
@@ -198,9 +239,9 @@ const addTransaction = async (request, h) => {
       quantity,
       total,
     } = request.payload;
-
+    const hargaTotal = quantity * total;
     const query = 'INSERT INTO orders (cart_id, payment_id, quantity, total) VALUES (?, ?, ?, ?)';
-    const escapedValues = [cartId, paymentId, quantity, total];
+    const escapedValues = [cartId, paymentId, quantity, hargaTotal];
 
     const {
       results,
@@ -232,7 +273,7 @@ const updateTransaction = async (request, h) => {
       total,
     } = request.payload;
 
-    const query = 'UPDATE orders SET quantity = ?, total = ? WHERE id = ?';
+    const query = 'UPDATE orders SET quantity = ?, total = quantity * ? WHERE id = ?';
     const escapedValues = [quantity, total, orderId];
 
     const {
@@ -262,43 +303,16 @@ const updateTransaction = async (request, h) => {
   }
 };
 
-const deleteCart = async (request, h) => {
-  try {
-    const {
-      id,
-    } = request.params;
-
-    const deleteQuery = 'DELETE FROM orders WHERE id = ?';
-    const deleteValues = [id];
-
-    const {
-      results,
-    } = await db.query(deleteQuery, deleteValues);
-
-    if (results.affectedRows > 0) {
-      return h.response({
-        message: 'Data Transakasi successfully deleted',
-      }).code(200);
-    }
-    return h.response({
-      message: 'Data Transaksi gagal di hapus',
-    }).code(404);
-  } catch (error) {
-    console.error('Error deleting data:', error);
-    return h.response({
-      message: 'Terjadi kesalahan dalam menghapus data transaksi',
-    }).code(500);
-  }
-};
 
 const deleteTransaction = async (request, h) => {
   try {
     const {
-      id,
+      participantId,
+      orderId
     } = request.params;
 
-    const deleteQuery = 'DELETE FROM orders WHERE id = ?';
-    const deleteValues = [id];
+    const deleteQuery = 'DELETE FROM orders WHERE participant_id = ? AND id = ? ';
+    const deleteValues = [participantId, orderId];
 
     const {
       results,
@@ -306,11 +320,11 @@ const deleteTransaction = async (request, h) => {
 
     if (results.affectedRows > 0) {
       return h.response({
-        message: 'Data Transakasi successfully deleted',
+        message: 'Data Transakassi successfully deleted',
       }).code(200);
     }
     return h.response({
-      message: 'Data Transaksi gagal di hapus',
+      message: 'Data Transaksis gagal di hapus',
     }).code(404);
   } catch (error) {
     console.error('Error deleting data:', error);

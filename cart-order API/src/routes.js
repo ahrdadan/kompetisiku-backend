@@ -1,12 +1,18 @@
 // src/routes.js
 const {
-  getAllTransactions, getTransactionById, addTransaction,
-  updateTransaction, deleteTransaction,
-  getAllCart, getCartById, addCart, updateCart, deleteCart,
+  getAllTransactions,
+  getTransactionById,
+  addTransaction,
+  updateTransaction,
+  deleteTransaction,
+  getAllCart,
+  getCartById,
+  addCart,
+  updateCart,
+  deleteCart,
 } = require('./handler');
 
-const routes = [
-  {
+const routes = [{
     method: 'GET',
     path: '/carts',
     handler: getAllCart,
@@ -28,7 +34,7 @@ const routes = [
   },
   {
     method: 'DELETE',
-    path: '/carts/{id}',
+    path: '/carts/{participantId}/{cartId}',
     handler: deleteCart,
   },
   {
@@ -53,7 +59,7 @@ const routes = [
   },
   {
     method: 'DELETE',
-    path: '/transactions/{id}',
+    path: '/transactions/{participantId}/{id}',
     handler: deleteTransaction,
   },
 ];
