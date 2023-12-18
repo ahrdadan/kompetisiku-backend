@@ -4,8 +4,8 @@ const moment = require('moment')
 
 // inputCompetition
 const inputCompetitionHandler = async (request, h) => {
-  const { userId } = request.params
-  const { title, category, organizer, image, eventStart, eventEnd, location, reward, registrationOpen, registrationClose, capacity, pricePerItem, description, attachedFile } = request.payload
+  const { organizerId } = request.params
+  const { title, categoryId, image, eventStart, eventEnd, location, reward, registrationOpen, registrationClose, capacity, pricePerItem, description, attachedFile } = request.payload
   if (eventStart > eventEnd) {
     const response = h.response({
       status: 'fail',
@@ -26,14 +26,6 @@ const inputCompetitionHandler = async (request, h) => {
     const response = h.response({
       status: 'fail',
       message: 'Judul kompetisi tidak boleh kosong'
-    })
-    response.code(400)
-    return response
-  }
-  if (!organizer) {
-    const response = h.response({
-      status: 'fail',
-      message: 'Penyelenggara tidak boleh kosong'
     })
     response.code(400)
     return response
@@ -97,7 +89,7 @@ const inputCompetitionHandler = async (request, h) => {
   if (!description) {
     const response = h.response({
       status: 'fail',
-      message: 'Harga tiket tidak boleh kosong'
+      message: 'Deskripsi kompetisi tidak boleh kosong'
     })
     response.code(400)
     return response
@@ -106,7 +98,7 @@ const inputCompetitionHandler = async (request, h) => {
   const createdAt = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
   const updatedAt = createdAt
 
-  await db.query('INSERT INTO kompetisiku.competitions (id, title, category, organizer, image, eventStart, eventEnd, location, reward, registrationOpen, registrationClose, capacity, pricePerItem, description, attachedFile, createdAt, updatedAt, userId) SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, id FROM users WHERE id=?', [id, title, category, organizer, image, eventStart, eventEnd, location, reward, registrationOpen, registrationClose, capacity, pricePerItem, description, attachedFile, createdAt, updatedAt, userId])
+  await db.query('INSERT INTO competitions SET id =?, title =?, categoryId =?, category = (SELECT category FROM categories WHERE id =?), organizerId =?, organizerName = (SELECT organizerName FROM organizers WHERE id =?), image =?, eventStart =?, eventEnd =?, location =?, reward =?, registrationOpen =?, registrationClose =?, capacity =?, pricePerItem =?, description =?, attachedFile =?, createdAt =?, updatedAt =?', [id, title, categoryId, categoryId, organizerId, organizerId, image, eventStart, eventEnd, location, reward, registrationOpen, registrationClose, capacity, pricePerItem, description, attachedFile, createdAt, updatedAt])
 
   const isSuccess = await db.query('SELECT * FROM competitions WHERE id =?', [id])
   if (isSuccess.results.length > 0) {
@@ -129,8 +121,8 @@ const inputCompetitionHandler = async (request, h) => {
 const getAllCompetitionsHandler = async (request, h) => {
   const { competitionId } = request.params
   const { title, category } = request.query
-  const titles = '%' + title + '%'
-  const categories = '%' + category + '%'
+  const titles = `%${title}%`
+  const categories = `%${category}%`
   if (competitionId) {
     const { results } = await db.query('SELECT * FROM competitions WHERE id =?', [competitionId])
     if (results[0]) {
@@ -149,14 +141,36 @@ const getAllCompetitionsHandler = async (request, h) => {
       return response
     }
   } else if (title || category) {
-    const { results } = await db.query('SELECT * FROM competitions WHERE title LIKE ? OR category LIKE ?', [titles, categories])
-    if (results[0]) {
-      const response = h.response({
-        status: 'success',
-        data: results
-      })
-      response.code(200)
-      return response
+    if (title && !category) {
+      const { results } = await db.query('SELECT * FROM competitions WHERE title LIKE ?', [titles])
+      if (results) {
+        const response = h.response({
+          status: 'success',
+          data: results
+        })
+        response.code(200)
+        return response
+      }
+    } else if (category && !title) {
+      const { results } = await db.query('SELECT * FROM competitions WHERE category LIKE ?', [categories])
+      if (results) {
+        const response = h.response({
+          status: 'success',
+          data: results
+        })
+        response.code(200)
+        return response
+      }
+    } else if (category && title) {
+      const { results } = await db.query('SELECT * FROM competitions WHERE title LIKE ? OR category LIKE ?', [titles, categories])
+      if (results) {
+        const response = h.response({
+          status: 'success',
+          data: results
+        })
+        response.code(200)
+        return response
+      }
     }
     const response = h.response({
       status: 'fail',
@@ -186,7 +200,7 @@ const getAllCompetitionsHandler = async (request, h) => {
 // updateCompetition
 const updateCompetitionHandler = async (request, h) => {
   const { competitionId } = request.params
-  const { title, category, organizer, image, eventStart, eventEnd, location, reward, registrationOpen, registrationClose, capacity, pricePerItem, description, attachedFile } = request.payload
+  const { title, categoryId, image, eventStart, eventEnd, location, reward, registrationOpen, registrationClose, capacity, pricePerItem, description, attachedFile } = request.payload
   if (eventStart > eventEnd) {
     const response = h.response({
       status: 'fail',
@@ -211,11 +225,8 @@ const updateCompetitionHandler = async (request, h) => {
     if (title) {
       await db.query('UPDATE competitions SET title =? WHERE id =?', [title, competitionId])
     }
-    if (category) {
-      await db.query('UPDATE competitions SET category =? WHERE id =?', [category, competitionId])
-    }
-    if (organizer) {
-      await db.query('UPDATE competitions SET organizer =? WHERE id =?', [organizer, competitionId])
+    if (categoryId) {
+      await db.query('UPDATE competitions SET categoryId =?, category = (SELECT category FROM categories WHERE id =?) WHERE id =?', [categoryId, categoryId, competitionId])
     }
     if (image) {
       await db.query('UPDATE competitions SET image =? WHERE id =?', [image, competitionId])
