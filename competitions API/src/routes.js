@@ -9,7 +9,7 @@ const routes = [
   // inputCompetition
   {
     method: 'POST',
-    path: '/competitions/{organizerId}',
+    path: '/{organizerId}/competitions',
     handler: inputCompetitionHandler
   },
   // getAllCompetitions
