@@ -32,7 +32,7 @@ CREATE TABLE `data_forms` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `data_forms_idx` (`competitionId`),
   CONSTRAINT `data_form-competition` FOREIGN KEY (`competitionId`) REFERENCES `competitions` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
