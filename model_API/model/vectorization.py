@@ -198,13 +198,18 @@ def vector_rec(user_id):
 
     sorted_dict = sorted(data_dict.items(), key=lambda x: x[1][-1], reverse=True)
 
-    # Hasil yang sudah urut kita tampilkan dalam bentuk id, title dan nilai kedekatan vektor
-    rec_dict = {}
+    full_rec_data = {}
+    iterate = 0
     for key, value in sorted_dict:
+        iterate += 1
         if value[1] >= 0.5:
-            rec_dict[key] = value
+            for i in range(len(lomba_df)):
+                if np.isin(lomba_df[i]['id'], key):
+                    full_rec_data[iterate] = lomba_df[i]
+                    full_rec_data[iterate].update({"recommendation":value[1]})
         else:
             break
-    return rec_dict
 
-# print(vector_rec(1))
+    return full_rec_data
+
+print(vector_rec(1))

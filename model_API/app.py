@@ -10,6 +10,5 @@ def vector_recommendation():
     rec = vector_rec(user_id)
     return rec
 
-
 if __name__ == '__main__':
     app.run(debug=True)
