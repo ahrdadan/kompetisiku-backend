@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "79cca2fb-9371-4074-859d-095517ea608f",
+		"name": "KompetisiKu Organizers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31448124"
+	},
+	"item": [
+		{
+			"name": "create organizer Copy",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"organizerName\": \"organizer1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/profile/Tk3nHcn1GFLHpX4m/organizers",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"profile",
+						"Tk3nHcn1GFLHpX4m",
+						"organizers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all organizers Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/profile/organizers",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"profile",
+						"organizers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get organizer Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/profile/organizers/rMv-FR66zIL0qJhD",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"profile",
+						"organizers",
+						"rMv-FR66zIL0qJhD"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update organizer Copy",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"organizerName\": \"newOrganizer1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/profile/organizers/himx57LC7soidu7V",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"profile",
+						"organizers",
+						"himx57LC7soidu7V"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete organizer Copy",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/profile/organizers/agfadfg",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"profile",
+						"organizers",
+						"agfadfg"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
