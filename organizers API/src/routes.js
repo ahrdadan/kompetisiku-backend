@@ -7,7 +7,7 @@ const {
 } = require('./handler')
 
 const routes = [
-  // createOrganzizer
+  // createOrganizer
   {
     method: 'POST',
     path: '/profile/{userId}/organizers',
