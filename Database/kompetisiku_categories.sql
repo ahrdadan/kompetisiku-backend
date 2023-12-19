@@ -16,32 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `data_forms`
+-- Table structure for table `categories`
 --
 
-DROP TABLE IF EXISTS `data_forms`;
+DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `data_forms` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `competitionId` varchar(45) NOT NULL,
-  `key` varchar(45) NOT NULL,
-  `dataType` varchar(45) NOT NULL,
-  `description` varchar(45) NOT NULL,
+CREATE TABLE `categories` (
+  `index` int NOT NULL AUTO_INCREMENT,
+  `id` varchar(45) NOT NULL,
+  `category` varchar(45) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `data_forms_idx` (`competitionId`),
-  CONSTRAINT `data_form-competition` FOREIGN KEY (`competitionId`) REFERENCES `competitions` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `id_UNIQUE` (`index`),
+  UNIQUE KEY `index_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `data_forms`
+-- Dumping data for table `categories`
 --
 
-LOCK TABLES `data_forms` WRITE;
-/*!40000 ALTER TABLE `data_forms` DISABLE KEYS */;
-/*!40000 ALTER TABLE `data_forms` ENABLE KEYS */;
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-19 21:19:05
+-- Dump completed on 2023-12-19 21:19:06

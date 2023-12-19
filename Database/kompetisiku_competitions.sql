@@ -26,9 +26,10 @@ CREATE TABLE `competitions` (
   `index` int NOT NULL AUTO_INCREMENT,
   `id` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
+  `categoryId` int DEFAULT NULL,
   `category` varchar(45) DEFAULT NULL,
-  `userId` varchar(45) NOT NULL,
-  `organizer` varchar(45) NOT NULL,
+  `organizerId` varchar(45) NOT NULL,
+  `organizerName` varchar(45) NOT NULL,
   `image` varchar(45) NOT NULL,
   `eventStart` date NOT NULL,
   `eventEnd` date NOT NULL,
@@ -45,9 +46,9 @@ CREATE TABLE `competitions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `index_UNIQUE` (`index`),
-  KEY `userId_idx` (`userId`),
-  CONSTRAINT `userId` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `competition-organizer_idx` (`organizerId`),
+  CONSTRAINT `competition-organizer` FOREIGN KEY (`organizerId`) REFERENCES `organizers` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,6 +57,7 @@ CREATE TABLE `competitions` (
 
 LOCK TABLES `competitions` WRITE;
 /*!40000 ALTER TABLE `competitions` DISABLE KEYS */;
+INSERT INTO `competitions` VALUES (6,'gSSBMH_gkdbpuX9w','title1',1,'Karya Tulis Ilmiah','himx57LC7soidu7V','newOrganizer1','link1','2023-12-09','2023-12-12','location1','reward1','2023-12-09','2023-12-12',250,50,'description1','linkFile1','2023-12-18 13:16:04','2023-12-18 13:16:04'),(7,'MINg-e5CjIRELvvz','title2',2,'Debat','himx57LC7soidu7V','newOrganizer1','link2','2023-12-09','2023-12-12','location2','reward2','2023-12-09','2023-12-12',250,50,'description2','linkFile2','2023-12-18 13:31:51','2023-12-18 13:31:51');
 /*!40000 ALTER TABLE `competitions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -68,4 +70,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-13 14:22:40
+-- Dump completed on 2023-12-19 21:19:05

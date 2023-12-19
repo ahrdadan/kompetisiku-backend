@@ -16,32 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `data_forms`
+-- Table structure for table `organizers`
 --
 
-DROP TABLE IF EXISTS `data_forms`;
+DROP TABLE IF EXISTS `organizers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `data_forms` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `competitionId` varchar(45) NOT NULL,
-  `key` varchar(45) NOT NULL,
-  `dataType` varchar(45) NOT NULL,
-  `description` varchar(45) NOT NULL,
+CREATE TABLE `organizers` (
+  `index` int NOT NULL AUTO_INCREMENT,
+  `id` varchar(45) NOT NULL,
+  `userId` varchar(45) NOT NULL,
+  `username` varchar(45) NOT NULL,
+  `organizerName` varchar(45) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `index_UNIQUE` (`index`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `data_forms_idx` (`competitionId`),
-  CONSTRAINT `data_form-competition` FOREIGN KEY (`competitionId`) REFERENCES `competitions` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `organizer-user_idx` (`userId`),
+  CONSTRAINT `organizer-user` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `data_forms`
+-- Dumping data for table `organizers`
 --
 
-LOCK TABLES `data_forms` WRITE;
-/*!40000 ALTER TABLE `data_forms` DISABLE KEYS */;
-/*!40000 ALTER TABLE `data_forms` ENABLE KEYS */;
+LOCK TABLES `organizers` WRITE;
+/*!40000 ALTER TABLE `organizers` DISABLE KEYS */;
+INSERT INTO `organizers` VALUES (3,'himx57LC7soidu7V','Tk3nHcn1GFLHpX4m','username1','newOrganizer1','2023-12-17 17:27:18','2023-12-06 18:59:39'),(4,'rMv-FR66zIL0qJhD','Tk3nHcn1GFLHpX4m','username1','organizer1','2023-12-17 17:27:40','2023-12-17 17:27:40');
+/*!40000 ALTER TABLE `organizers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
