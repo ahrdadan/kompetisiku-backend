@@ -12,4 +12,3 @@ def mysql():
         return cnx
     except Error as e:
         return e
-

@@ -187,6 +187,7 @@ user_com_train = user_data_bersih.values
 lomba_id = extract_data(lomba_df, 'id')
 lomba_title = extract_data(lomba_df, 'title')
 
+
 def vector_rec(user_id):
     data_dict = {lomba_id[i]: [lomba_title[i]] for i in range(len(lomba_id))}
     for index in range(len(user_com_train)):
@@ -198,18 +199,16 @@ def vector_rec(user_id):
 
     sorted_dict = sorted(data_dict.items(), key=lambda x: x[1][-1], reverse=True)
 
-    full_rec_data = {}
+    full_rec_data = {"status": "success", "data": []}
     iterate = 0
     for key, value in sorted_dict:
-        iterate += 1
         if value[1] >= 0.5:
             for i in range(len(lomba_df)):
                 if np.isin(lomba_df[i]['id'], key):
-                    full_rec_data[iterate] = lomba_df[i]
-                    full_rec_data[iterate].update({"recommendation":value[1]})
+                    full_rec_data["data"].append(lomba_df[i])
+                    full_rec_data["data"][iterate].update({"recommendation": value[1]})
+            iterate += 1
         else:
             break
 
     return full_rec_data
-
-print(vector_rec(1))
