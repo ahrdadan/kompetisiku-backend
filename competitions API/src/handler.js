@@ -98,22 +98,31 @@ const inputCompetitionHandler = async (request, h) => {
   const createdAt = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
   const updatedAt = createdAt
 
-  await db.query('INSERT INTO competitions SET id =?, title =?, categoryId =?, category = (SELECT category FROM categories WHERE id =?), organizerId =?, organizerName = (SELECT organizerName FROM organizers WHERE id =?), image =?, eventStart =?, eventEnd =?, location =?, reward =?, registrationOpen =?, registrationClose =?, capacity =?, pricePerItem =?, description =?, attachedFile =?, createdAt =?, updatedAt =?', [id, title, categoryId, categoryId, organizerId, organizerId, image, eventStart, eventEnd, location, reward, registrationOpen, registrationClose, capacity, pricePerItem, description, attachedFile, createdAt, updatedAt])
+  const { results } = await db.query('SELECT * FROM organizers WHERE id =?', [organizerId])
+  if (results.length > 0) {
+    await db.query('INSERT INTO competitions SET id =?, title =?, categoryId =?, category = (SELECT category FROM categories WHERE id =?), organizerId =?, organizerName = (SELECT organizerName FROM organizers WHERE id =?), image =?, eventStart =?, eventEnd =?, location =?, reward =?, registrationOpen =?, registrationClose =?, capacity =?, pricePerItem =?, description =?, attachedFile =?, createdAt =?, updatedAt =?', [id, title, categoryId, categoryId, organizerId, organizerId, image, eventStart, eventEnd, location, reward, registrationOpen, registrationClose, capacity, pricePerItem, description, attachedFile, createdAt, updatedAt])
 
-  const isSuccess = await db.query('SELECT * FROM competitions WHERE id =?', [id])
-  if (isSuccess.results.length > 0) {
+    const isSuccess = await db.query('SELECT * FROM competitions WHERE id =?', [id])
+    if (isSuccess.results.length > 0) {
+      const response = h.response({
+        status: 'success',
+        data: isSuccess.results[0]
+      })
+      response.code(201)
+      return response
+    }
     const response = h.response({
-      status: 'success',
-      data: isSuccess.results[0]
+      status: 'fail',
+      message: 'Gagal menambahakan kompetisi'
     })
-    response.code(201)
+    response.code(400)
     return response
   }
   const response = h.response({
     status: 'fail',
-    message: 'Gagal menambahakan kompetisi'
+    message: 'Penyelenggara tidak ditemukan'
   })
-  response.code(400)
+  response.code(404)
   return response
 }
 

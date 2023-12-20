@@ -1,17 +1,15 @@
 const moment = require('moment')
 const db = require('./database')
-const { nanoid } = require('nanoid')
 
 // inputCategories
 const inputCategoriesHandler = async (request, h) => {
   const { category } = request.payload
-  const id = nanoid(16)
   const createdAt = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
   const updatedAt = createdAt
 
-  await db.query('INSERT INTO categories SET id =?, category =?, createdAt =?, updatedAt =?', [id, category, createdAt, updatedAt])
+  await db.query('INSERT INTO categories SET category =?, createdAt =?, updatedAt =?', [category, createdAt, updatedAt])
 
-  const { results } = await db.query('SELECT * FROM categories WHERE id =?', [id])
+  const { results } = await db.query('SELECT * FROM categories WHERE createdAt =?', [createdAt])
   if (results.length > 0) {
     const response = h.response({
       status: 'success',
