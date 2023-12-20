@@ -208,7 +208,7 @@ const getAllCompetitionsHandler = async (request, h) => {
 
 // updateCompetition
 const updateCompetitionHandler = async (request, h) => {
-  const { competitionId } = request.params
+  const { organizerId, competitionId } = request.params
   const { title, categoryId, image, eventStart, eventEnd, location, reward, registrationOpen, registrationClose, capacity, pricePerItem, description, attachedFile } = request.payload
   if (eventStart > eventEnd) {
     const response = h.response({
@@ -227,7 +227,7 @@ const updateCompetitionHandler = async (request, h) => {
     return response
   }
   const updatedAt = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
-  const isCorrect = await db.query('SELECT * FROM competitions WHERE id =?', [competitionId])
+  const isCorrect = await db.query('SELECT * FROM competitions WHERE id =? AND organizerId =?', [competitionId, organizerId])
   const correct = isCorrect.results
   if (correct.length > 0) {
     await db.query('UPDATE competitions SET updatedAt =? WHERE id =?', [updatedAt, competitionId])
@@ -291,8 +291,8 @@ const updateCompetitionHandler = async (request, h) => {
 
 // deleteCompetition
 const deleteCompetitionHandler = async (request, h) => {
-  const { competitionId } = request.params
-  const isCorrect = await db.query('SELECT * FROM competitions WHERE id =?', [competitionId])
+  const { organizerId, competitionId } = request.params
+  const isCorrect = await db.query('SELECT * FROM competitions WHERE id =? AND organizerId =?', [competitionId, organizerId])
   const deleted = isCorrect.results
   if (deleted.length > 0) {
     await db.query('DELETE FROM competitions WHERE id =?', [competitionId])

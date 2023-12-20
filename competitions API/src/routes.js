@@ -21,13 +21,13 @@ const routes = [
   // updateCompetition
   {
     method: 'PATCH',
-    path: '/competitions/{competitionId}',
+    path: '/{organizerId}/competitions/{competitionId}',
     handler: updateCompetitionHandler
   },
   // deleteCompetition
   {
     method: 'DELETE',
-    path: '/competitions/{competitionId}',
+    path: '/{organizerId}/competitions/{competitionId}',
     handler: deleteCompetitionHandler
   }
 ]

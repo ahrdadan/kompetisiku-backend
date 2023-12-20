@@ -10,7 +10,7 @@ const routes = [
   // inputDataForms
   {
     method: 'POST',
-    path: '/competitions/forms/{userId}',
+    path: '/{organizerId}/competitions/forms',
     handler: inputDataFormsHandler
   },
   // getAllForms
@@ -28,13 +28,13 @@ const routes = [
   // updateFormsById
   {
     method: 'PATCH',
-    path: '/competitions/forms/{formId}',
+    path: '{organizerId}/competitions/forms/{formId}',
     handler: updateFormsByIdHandler
   },
   // deleteForms
   {
     method: 'DELETE',
-    path: '/competitions/forms/{formId}',
+    path: '{organizerId}/competitions/forms/{formId}',
     handler: deleteFormsHandler
   }
 ]
