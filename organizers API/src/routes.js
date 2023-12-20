@@ -28,13 +28,13 @@ const routes = [
   // updateOrganizer
   {
     method: 'PATCH',
-    path: '/profile/organizers/{organizerId}',
+    path: '/profile/{userId}/organizers/{organizerId}',
     handler: updateOrganizerByIdHandler
   },
   // deleteOrganizer
   {
     method: 'DELETE',
-    path: '/profile/organizers/{organizerId}',
+    path: '/profile/{userId}/organizers/{organizerId}',
     handler: deleteOrganizerById
   }
 ]
