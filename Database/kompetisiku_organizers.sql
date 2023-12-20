@@ -24,18 +24,18 @@ DROP TABLE IF EXISTS `organizers`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `organizers` (
   `index` int NOT NULL AUTO_INCREMENT,
-  `id` varchar(45) NOT NULL,
-  `userId` varchar(45) NOT NULL,
-  `username` varchar(45) NOT NULL,
-  `organizerName` varchar(45) NOT NULL,
+  `id` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `userId` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `username` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `organizerName` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_UNIQUE` (`index`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `organizer-user_idx` (`userId`),
-  CONSTRAINT `organizer-user` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `organizer-user` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,6 @@ CREATE TABLE `organizers` (
 
 LOCK TABLES `organizers` WRITE;
 /*!40000 ALTER TABLE `organizers` DISABLE KEYS */;
-INSERT INTO `organizers` VALUES (3,'himx57LC7soidu7V','Tk3nHcn1GFLHpX4m','username1','newOrganizer1','2023-12-17 17:27:18','2023-12-06 18:59:39'),(4,'rMv-FR66zIL0qJhD','Tk3nHcn1GFLHpX4m','username1','organizer1','2023-12-17 17:27:40','2023-12-17 17:27:40');
 /*!40000 ALTER TABLE `organizers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-19 21:19:05
+-- Dump completed on 2023-12-20 18:11:12

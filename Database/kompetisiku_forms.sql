@@ -24,10 +24,11 @@ DROP TABLE IF EXISTS `forms`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `forms` (
   `index` int NOT NULL AUTO_INCREMENT,
-  `id` varchar(45) NOT NULL,
-  `userId` varchar(45) NOT NULL,
-  `competitionId` varchar(45) NOT NULL,
-  `title` varchar(45) NOT NULL,
+  `id` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `organizerId` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `organizerName` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `competitionId` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `title` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `dataId` int NOT NULL,
   `data` json NOT NULL,
   `createdAt` datetime NOT NULL,
@@ -35,8 +36,12 @@ CREATE TABLE `forms` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `index_UNIQUE` (`index`),
+  KEY `form-organizer_idx` (`organizerId`),
+  KEY `form-competition_idx` (`competitionId`),
   KEY `form-data_idx` (`dataId`),
-  CONSTRAINT `form-data` FOREIGN KEY (`dataId`) REFERENCES `data_forms` (`id`)
+  CONSTRAINT `form-competition` FOREIGN KEY (`competitionId`) REFERENCES `competitions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `form-data` FOREIGN KEY (`dataId`) REFERENCES `data_forms` (`id`),
+  CONSTRAINT `form-organizer` FOREIGN KEY (`organizerId`) REFERENCES `organizers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -58,4 +63,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-19 21:19:05
+-- Dump completed on 2023-12-20 18:11:12

@@ -24,15 +24,17 @@ DROP TABLE IF EXISTS `data_forms`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `data_forms` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `competitionId` varchar(45) NOT NULL,
-  `key` varchar(45) NOT NULL,
-  `dataType` varchar(45) NOT NULL,
-  `description` varchar(45) NOT NULL,
+  `competitionId` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `key` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `dataType` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `description` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `data_forms_idx` (`competitionId`),
-  CONSTRAINT `data_form-competition` FOREIGN KEY (`competitionId`) REFERENCES `competitions` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `data_form-competition` FOREIGN KEY (`competitionId`) REFERENCES `competitions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-19 21:19:05
+-- Dump completed on 2023-12-20 18:11:12

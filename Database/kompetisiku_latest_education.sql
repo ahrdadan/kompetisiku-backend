@@ -24,10 +24,10 @@ DROP TABLE IF EXISTS `latest_education`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `latest_education` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `education` varchar(45) NOT NULL,
+  `education` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `latest_education` (
 
 LOCK TABLES `latest_education` WRITE;
 /*!40000 ALTER TABLE `latest_education` DISABLE KEYS */;
-INSERT INTO `latest_education` VALUES (1,'SD Kelas 1'),(2,'SD Kelas 2'),(3,'SD Kelas 3'),(4,'SD Kelas 4'),(5,'SD Kelas 5'),(6,'SD Kelas 6'),(7,'SMP Kelas 1'),(8,'SMP Kelas 2'),(9,'SMP Kelas 3'),(10,'SMA Kelas 1'),(11,'SMA Kelas 2'),(12,'SMA Kelas 3'),(13,'D1'),(14,'D3'),(15,'D4/S1');
+INSERT INTO `latest_education` VALUES (1,'SD'),(2,'SMP'),(3,'SMA'),(4,'SMK'),(5,'MI'),(6,'MTs'),(7,'MA'),(8,'D1'),(9,'D2'),(10,'D3'),(11,'D4'),(12,'S1');
 /*!40000 ALTER TABLE `latest_education` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-19 21:19:05
+-- Dump completed on 2023-12-20 18:11:12
