@@ -119,10 +119,8 @@ const updateOrganizerByIdHandler = async (request, h) => {
 
 // deleteOrganizerById
 const deleteOrganizerById = async (request, h) => {
-  const { organizerId } = request.params
-  const avail = await db.query('SELECT * FROM organizers WHERE id =?', [
-    organizerId
-  ])
+  const { userId, organizerId } = request.params
+  const avail = await db.query('SELECT * FROM organizers WHERE id =? AND userId =?', [organizerId, userId])
   if (avail.results.length > 0) {
     await db.query('DELETE FROM organizers WHERE id =?', [organizerId])
     const isSuccess = await db.query('SELECT * FROM organizers WHERE id =?', [
