@@ -2,30 +2,38 @@ const moment = require('moment')
 const { nanoid } = require('nanoid')
 const db = require('./database')
 
-// inputDataForms
-const inputDataFormsHandler = async (request, h) => {
-  const { data } = request.payload
-  const { userId } = request.params
-  const { competitionId } = request.query
+// createForms
+const createFormsHandler = async (request, h) => {
+  const { dataId } = request.payload
+  const { organizerId, competitionId } = request.params
   const id = nanoid(16)
   const createdAt = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
   const updatedAt = createdAt
 
-  const { results } = await db.query('INSERT INTO data_forms SET data =?, id =?, userId = (SELECT id FROM users WHERE id =?), competitionId =(SELECT id FROM competitions WHERE id =?), title = (SELECT title FROM competitions WHERE id =?),createdAt =?, updatedAt =?', [JSON.stringify(data), id, userId, competitionId, competitionId, createdAt, updatedAt])
+  const avail = await db.query('SELECT * FROM competitions WHERE id =? AND organizerId =?', [competitionId, organizerId])
+  if (avail.results.length > 0) {
+    const { results } = await db.query('INSERT INTO forms SET organizerId =?, organizerName = (SELECT organizerName FROM organizers WHERE id =?), competitionId =?, title = (SELECT title FROM competitions WHERE id =?), dataId =?, data = CAST((SELECT key, dataType, description FROM data_forms WHERE id =?)AS JSON), createdAt =?, updatedAt =?', [organizerId, organizerId, competitionId, competitionId, dataId, dataId, createdAt, updatedAt])
 
-  if (results.length > 0) {
-    const success = await db.query('SELECT * FROM data_forms WHERE id =?', [id])
+    if (results.length > 0) {
+      const success = await db.query('SELECT * FROM data_forms WHERE id =?', [id])
+      const response = h.response({
+        status: 'success',
+        data: success.results[0]
+      })
+      response.code(201)
+      return response
+    }
     const response = h.response({
-      status: 'success',
-      data: success.results[0]
+      status: 'fail'
     })
-    response.code(201)
+    response.code(400)
     return response
   }
   const response = h.response({
-    status: 'fail'
+    status: 'fail',
+    message: 'Kompetisi tidak ditemukan'
   })
-  response.code(400)
+  response.code(404)
   return response
 }
 
@@ -138,7 +146,7 @@ const deleteFormsHandler = async (request, h) => {
 }
 
 module.exports = {
-  inputDataFormsHandler,
+  createFormsHandler,
   getAllFormsHandler,
   getFormsByIdHandler,
   updateFormsByIdHandler,

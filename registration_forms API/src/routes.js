@@ -1,17 +1,17 @@
 const {
-  inputDataFormsHandler,
   getAllFormsHandler,
   getFormsByIdHandler,
   updateFormsByIdHandler,
-  deleteFormsHandler
+  deleteFormsHandler,
+  createFormsHandler
 } = require('./handler')
 
 const routes = [
-  // inputDataForms
+  // createForms
   {
     method: 'POST',
-    path: '/{organizerId}/competitions/forms',
-    handler: inputDataFormsHandler
+    path: '/{organizerId}/competitions/{competitionId}/forms',
+    handler: createFormsHandler
   },
   // getAllForms
   {
@@ -28,13 +28,13 @@ const routes = [
   // updateFormsById
   {
     method: 'PATCH',
-    path: '{organizerId}/competitions/forms/{formId}',
+    path: '/{organizerId}/competitions/forms/{formId}',
     handler: updateFormsByIdHandler
   },
   // deleteForms
   {
     method: 'DELETE',
-    path: '{organizerId}/competitions/forms/{formId}',
+    path: '/{organizerId}/competitions/forms/{formId}',
     handler: deleteFormsHandler
   }
 ]
