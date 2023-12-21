@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "input competition Copy",
+			"name": "input competition",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -21,14 +21,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5002/himx57LC7soidu7V/competitions",
+					"raw": "http://localhost:5003/2Yuql1cjBltADy7W/competitions",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "5002",
+					"port": "5003",
 					"path": [
-						"himx57LC7soidu7V",
+						"2Yuql1cjBltADy7W",
 						"competitions"
 					]
 				}
@@ -36,17 +36,17 @@
 			"response": []
 		},
 		{
-			"name": "show competitions Copy",
+			"name": "show competitions",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5002/competitions?title=title1&category=debat",
+					"raw": "http://localhost:5003/competitions?title=title1&category=debat",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "5002",
+					"port": "5003",
 					"path": [
 						"competitions"
 					],
@@ -65,13 +65,13 @@
 			"response": []
 		},
 		{
-			"name": "update competitions Copy",
+			"name": "update competitions",
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"title4\",\r\n    \"categoryId\": 2,\r\n    \"image\": \"link4\",\r\n    \"eventStart\": \"2023-12-09\",\r\n    \"eventEnd\": \"2023-12-12\",\r\n    \"location\": \"location4\",\r\n    \"reward\": \"reward4\",\r\n    \"registrationOpen\": \"2023-12-09\",\r\n    \"registrationClose\": \"2023-12-12\",\r\n    \"capacity\": 250,\r\n    \"pricePerItem\": 50,\r\n    \"description\": \"description4\",\r\n    \"attachedFile\": \"linkFile4\"\r\n}",
+					"raw": "{\r\n    \"title\": \"title2\",\r\n    \"categoryId\": 1,\r\n    \"image\": \"link2\",\r\n    \"eventStart\": \"2023-12-09\",\r\n    \"eventEnd\": \"2023-12-12\",\r\n    \"location\": \"location2\",\r\n    \"reward\": \"reward2\",\r\n    \"registrationOpen\": \"2023-12-09\",\r\n    \"registrationClose\": \"2023-12-12\",\r\n    \"capacity\": 250,\r\n    \"pricePerItem\": 50,\r\n    \"description\": \"description2\",\r\n    \"attachedFile\": \"linkFile2\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -79,33 +79,34 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5002/competitions/9xISettS45_gIEHO",
+					"raw": "localhost:5003/2Yuql1cjBltADy7W/competitions/Kq8As3DapNK_9Jz0",
 					"host": [
 						"localhost"
 					],
-					"port": "5002",
+					"port": "5003",
 					"path": [
+						"2Yuql1cjBltADy7W",
 						"competitions",
-						"9xISettS45_gIEHO"
+						"Kq8As3DapNK_9Jz0"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "delete competitions Copy",
+			"name": "delete competitions",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:5002/competitions/9xISettS45_gIEHO",
+					"raw": "localhost:5003/competitions/8dzrxAz4rnQVyDVm",
 					"host": [
 						"localhost"
 					],
-					"port": "5002",
+					"port": "5003",
 					"path": [
 						"competitions",
-						"9xISettS45_gIEHO"
+						"8dzrxAz4rnQVyDVm"
 					]
 				}
 			},

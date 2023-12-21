@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "4d6b1ff9-81ab-4744-afda-8c1504689d52",
+		"name": "KompetisiKu Registration Forms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31448124"
+	},
+	"item": [
+		{
+			"name": "create forms",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dataId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5004/2Yuql1cjBltADy7W/competitions/Kq8As3DapNK_9Jz0/forms",
+					"host": [
+						"localhost"
+					],
+					"port": "5004",
+					"path": [
+						"2Yuql1cjBltADy7W",
+						"competitions",
+						"Kq8As3DapNK_9Jz0",
+						"forms"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

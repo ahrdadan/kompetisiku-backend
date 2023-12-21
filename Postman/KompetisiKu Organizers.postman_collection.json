@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "create organizer Copy",
+			"name": "create organizer",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
 			},
@@ -24,14 +24,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5001/profile/Tk3nHcn1GFLHpX4m/organizers",
+					"raw": "localhost:5001/profile/Y08sne6yCAW2K8xD/organizers",
 					"host": [
 						"localhost"
 					],
 					"port": "5001",
 					"path": [
 						"profile",
-						"Tk3nHcn1GFLHpX4m",
+						"Y08sne6yCAW2K8xD",
 						"organizers"
 					]
 				}
@@ -39,7 +39,7 @@
 			"response": []
 		},
 		{
-			"name": "get all organizers Copy",
+			"name": "get all organizers",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -58,12 +58,12 @@
 			"response": []
 		},
 		{
-			"name": "get organizer Copy",
+			"name": "get organizer",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:5001/profile/organizers/rMv-FR66zIL0qJhD",
+					"raw": "localhost:5001/profile/organizers/2Yuql1cjBltADy7W",
 					"host": [
 						"localhost"
 					],
@@ -71,14 +71,14 @@
 					"path": [
 						"profile",
 						"organizers",
-						"rMv-FR66zIL0qJhD"
+						"2Yuql1cjBltADy7W"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "update organizer Copy",
+			"name": "update organizer",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
 			},
@@ -95,35 +95,37 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5001/profile/organizers/himx57LC7soidu7V",
+					"raw": "localhost:5001/profile/Y08sne6yCAW2K8xD/organizers/2Yuql1cjBltADy7W",
 					"host": [
 						"localhost"
 					],
 					"port": "5001",
 					"path": [
 						"profile",
+						"Y08sne6yCAW2K8xD",
 						"organizers",
-						"himx57LC7soidu7V"
+						"2Yuql1cjBltADy7W"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "delete organizer Copy",
+			"name": "delete organizer",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:5001/profile/organizers/agfadfg",
+					"raw": "localhost:5001/profile/71OGUPG6mAjOWMnx/organizers/-gvcumy1CgGzwlAr",
 					"host": [
 						"localhost"
 					],
 					"port": "5001",
 					"path": [
 						"profile",
+						"71OGUPG6mAjOWMnx",
 						"organizers",
-						"agfadfg"
+						"-gvcumy1CgGzwlAr"
 					]
 				}
 			},

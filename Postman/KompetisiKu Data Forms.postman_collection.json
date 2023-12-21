@@ -1,0 +1,62 @@
+{
+	"info": {
+		"_postman_id": "3a6d83c2-4ef8-4a98-b226-2f8a006e680f",
+		"name": "KompetisiKu Data Forms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31448124"
+	},
+	"item": [
+		{
+			"name": "insert question",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"key\": \"Nama\",\r\n    \"dataType\": \"varchar\",\r\n    \"description\": \"Nama lengkap\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5005/2Yuql1cjBltADy7W/competitions/Kq8As3DapNK_9Jz0/forms/data",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"2Yuql1cjBltADy7W",
+						"competitions",
+						"Kq8As3DapNK_9Jz0",
+						"forms",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get qustions by competitions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5005/competitions/Kq8As3DapNK_9Jz0/forms/data",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"competitions",
+						"Kq8As3DapNK_9Jz0",
+						"forms",
+						"data"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
