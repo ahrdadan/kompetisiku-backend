@@ -59,9 +59,6 @@ services:
   database:
     build:
       context: ./Database
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: kompetisiku
     volumes:
       - ./sql_scripts:/Database/backup/new
     ports:
