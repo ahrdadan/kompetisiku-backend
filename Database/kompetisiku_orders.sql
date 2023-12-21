@@ -25,16 +25,23 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `index` int NOT NULL AUTO_INCREMENT,
   `id` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `formId` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `userId` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `competitionId` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `formId` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `title` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `pricePerItem` int NOT NULL,
+  `answer` json NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_UNIQUE` (`index`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `order-user_idx` (`userId`),
+  KEY `order-competition_idx` (`competitionId`),
+  KEY `order-form` (`formId`),
+  CONSTRAINT `order-competition` FOREIGN KEY (`competitionId`) REFERENCES `competitions` (`id`),
+  CONSTRAINT `order-form` FOREIGN KEY (`formId`) REFERENCES `forms` (`id`),
+  CONSTRAINT `order-user` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -56,4 +63,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-20 18:11:12
+-- Dump completed on 2023-12-21  9:31:54

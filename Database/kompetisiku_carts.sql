@@ -16,35 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `organizers`
+-- Table structure for table `carts`
 --
 
-DROP TABLE IF EXISTS `organizers`;
+DROP TABLE IF EXISTS `carts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `organizers` (
+CREATE TABLE `carts` (
   `index` int NOT NULL AUTO_INCREMENT,
   `id` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `userId` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `username` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `organizerName` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `competitionId` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `pricePerItem` int NOT NULL,
+  `quantity` int NOT NULL,
+  `total` int NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index_UNIQUE` (`index`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `organizer-user_idx` (`userId`),
-  CONSTRAINT `organizer-user` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  UNIQUE KEY `id_UNIQUE` (`index`),
+  KEY `cart-competition` (`competitionId`),
+  CONSTRAINT `cart-competition` FOREIGN KEY (`competitionId`) REFERENCES `competitions` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `organizers`
+-- Dumping data for table `carts`
 --
 
-LOCK TABLES `organizers` WRITE;
-/*!40000 ALTER TABLE `organizers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `organizers` ENABLE KEYS */;
+LOCK TABLES `carts` WRITE;
+/*!40000 ALTER TABLE `carts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `carts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
