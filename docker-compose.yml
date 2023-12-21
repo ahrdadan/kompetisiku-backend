@@ -1,0 +1,68 @@
+version: '3.8'
+services:
+  carts:
+    build: ./carts_API
+    ports:
+      - "5007:5007"
+    depends_on:
+      - database
+
+  categories:
+    build: ./categories_API
+    ports:
+      - "5002:5002"
+    depends_on:
+      - database
+
+  competitions:
+    build: ./competitions_API
+    ports:
+      - "5003:5003"
+    depends_on:
+      - database
+
+  data_form:
+    build: ./data_form_API
+    ports:
+      - "5005:5005"
+    depends_on:
+      - database
+
+  login_signup:
+    build: ./login-signup_API
+    ports:
+      - "5000:5000"
+    depends_on:
+      - database
+
+  orders:
+    build: ./orders_API
+    ports:
+      - "5006:5006"
+    depends_on:
+      - database
+
+  organizers:
+    build: ./organizers_API
+    ports:
+      - "5001:5001"
+    depends_on:
+      - database
+
+  registration_forms:
+    build: ./registration_forms_API
+    ports:
+      - "5004:5004"
+    depends_on:
+      - database
+
+  database:
+    build:
+      context: ./Database
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: myapp
+    volumes:
+      - ./sql_scripts:/Database/backup/new
+    ports:
+      - "3306:3306"
