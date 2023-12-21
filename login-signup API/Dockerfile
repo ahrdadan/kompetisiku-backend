@@ -10,5 +10,7 @@ ADD . /app
 # Make the container's port 80 available to the outside world
 EXPOSE 5000
 
+RUN npm install
+
 # Run app.js using node when the container launches
 CMD ["npm", "start"]
