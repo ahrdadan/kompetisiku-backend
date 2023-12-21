@@ -22,7 +22,7 @@ services:
       - database
 
   data_form:
-    build: ./data_form_API
+    build: ./data_forms_API
     ports:
       - "5005:5005"
     depends_on:
@@ -60,8 +60,8 @@ services:
     build:
       context: ./Database
     environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: myapp
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: kompetisiku
     volumes:
       - ./sql_scripts:/Database/backup/new
     ports:
