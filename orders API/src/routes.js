@@ -1,4 +1,9 @@
-const { createOrdersHandler, getOrdersByUserId, updateOrdersById, deleteOrderById } = require('./handler')
+const {
+  createOrdersHandler,
+  getOrdersByUserId,
+  updateOrdersById,
+  deleteOrderById
+} = require('./handler')
 
 const routes = [
   // createOrder
